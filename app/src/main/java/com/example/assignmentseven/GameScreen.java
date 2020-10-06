@@ -54,6 +54,72 @@ public class GameScreen extends AppCompatActivity {
         abstract void draw(Canvas canvas);
     }
 
+    //Creates a ball class that extends circle
+    public class Ball extends Circle
+    {
+        public float startX;
+        public float startY;
+        public float endX;
+        public float endY;
+        public float velocity;
+        public float direction;
+
+        public Ball(float startX, float startY, int radius, Paint paint, float endX, float endY, float velocity)
+        {
+            this.x = startX;
+            this.y = startY;
+            this.radius = radius;
+            this.paint = paint;
+            this.startX = startX;
+            this.startY = startY;
+            this.endX = endX;
+            this.endY = endY;
+            this.velocity = velocity;
+            direction = 1;
+        }
+
+        //Draw the ball
+        public void draw(Canvas canvas)
+        {
+            canvas.drawCircle(x, y, radius, paint);
+        }
+
+        //Check if the ball collides with another object
+        public Circle checkCollision()
+        {
+            //Loop through circles
+            for (int i=0; i < circleArray.length; i++)
+            {
+                Circle current = circleArray[i];
+                if (this.x > (current.x - current.radius) && this.x < (current.x + current.radius) && this.y > (current.y - current.radius) && this.y < (current.y + current.radius))
+                {
+                    return current;
+                }
+            }
+            //No collision found so return null
+            return null;
+        }
+
+        //Move the ball
+        public void Move(Canvas canvas)
+        {
+            //Check that ball is not on sides
+            if ((x-(startX-endX) * (velocity / 30000) * direction) < radius)
+            {
+                direction = direction * -1;
+                x = radius;
+            }
+            else if ((x-(startX-endX) * (velocity / 30000) * direction) > (canvas.getWidth() - radius))
+            {
+                direction = direction * - 1;
+                x = canvas.getWidth() - radius;
+            }
+
+            x -= (startX-endX) * (velocity / 20000) * direction;
+            y -= (startY-endY) * (velocity / 20000);
+        }
+    }
+
     public class GraphicsView extends View {
 
         private GestureDetector gestureDetector;
