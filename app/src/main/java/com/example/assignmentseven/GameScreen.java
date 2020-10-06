@@ -41,7 +41,18 @@ public class GameScreen extends AppCompatActivity {
     boolean start = true;
     int ranX = 0;
     TextView textView;
-    //Circle[] circleArray;
+    Circle[] circleArray;
+
+    //Creates an abstract class circle
+    public abstract class Circle
+    {
+        public float x;
+        public float y;
+        public int radius;
+        public Paint paint;
+
+        abstract void draw(Canvas canvas);
+    }
 
     public class GraphicsView extends View {
 
