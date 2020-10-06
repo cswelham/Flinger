@@ -120,6 +120,27 @@ public class GameScreen extends AppCompatActivity {
         }
     }
 
+    //Creates a class obstacle that extends circle
+    public class Obstacle extends Circle
+    {
+        public String effect;
+
+        public Obstacle(float x, float y, int radius, Paint paint, String effect)
+        {
+            this.x = x;
+            this.y = y;
+            this.radius = radius;
+            this.paint = paint;
+            this.effect = effect;
+        }
+
+        //Draw the ball
+        public void draw(Canvas canvas)
+        {
+            canvas.drawCircle(x, y, radius, paint);
+        }
+    }
+
     public class GraphicsView extends View {
 
         private GestureDetector gestureDetector;
