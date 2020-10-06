@@ -141,6 +141,32 @@ public class GameScreen extends AppCompatActivity {
         }
     }
 
+    //Creates a target class that extends circle
+    public class Target extends Circle
+    {
+        public String effect;
+
+        public Target(float x, float y, int radius, Paint paint)
+        {
+            this.x = x;
+            this.y = y;
+            this.radius = radius;
+            this.paint = paint;
+        }
+
+        //Draw the ball
+        public void draw(Canvas canvas)
+        {
+            canvas.drawCircle(x, y, radius, paint);
+        }
+
+        //Randomize the x coordinate
+        public void randomX(Canvas canvas)
+        {
+            x = rand.nextInt(canvas.getWidth()-radius) + radius;;
+        }
+    }
+
     public class GraphicsView extends View {
 
         private GestureDetector gestureDetector;
