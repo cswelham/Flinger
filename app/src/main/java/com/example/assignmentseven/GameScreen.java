@@ -18,30 +18,20 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class GameScreen extends AppCompatActivity {
 
     String TAG = "TAG_GESTURE";
-    Boolean fling = false;
     Boolean flinging = false;
-    float startX = 0;
-    float startY = 0;
-    float endX = 0;
-    float endY = 0;
-    float currX = 0;
-    float currY = 0;
-    float moveX = 0;
-    float moveY = 0;
-    float vX = 0;
-    float vY = 0;
-    float velocity = 0;
-    int direction = 1;
+    int score = 0;
     Random rand = new Random();
     boolean start = true;
-    int ranX = 0;
-    TextView textView;
-    Circle[] circleArray;
+    TextView textViewScore;
+    List<Circle> circleList = new ArrayList<Circle>();
+    List<Ball> ballList = new ArrayList<Ball>();
 
     //Creates an abstract class circle
     public abstract class Circle
@@ -50,6 +40,7 @@ public class GameScreen extends AppCompatActivity {
         public float y;
         public int radius;
         public Paint paint;
+        public String effect;
 
         abstract void draw(Canvas canvas);
     }
@@ -76,6 +67,7 @@ public class GameScreen extends AppCompatActivity {
             this.endY = endY;
             this.velocity = velocity;
             direction = 1;
+            effect = "Ball";
         }
 
         //Draw the ball
@@ -88,9 +80,9 @@ public class GameScreen extends AppCompatActivity {
         public Circle checkCollision()
         {
             //Loop through circles
-            for (int i=0; i < circleArray.length; i++)
+            for (int i=0; i < circleList.size(); i++)
             {
-                Circle current = circleArray[i];
+                Circle current = circleList.get(i);
                 if (this.x > (current.x - current.radius) && this.x < (current.x + current.radius) && this.y > (current.y - current.radius) && this.y < (current.y + current.radius))
                 {
                     return current;
@@ -104,27 +96,25 @@ public class GameScreen extends AppCompatActivity {
         public void Move(Canvas canvas)
         {
             //Check that ball is not on sides
-            if ((x-(startX-endX) * (velocity / 30000) * direction) < radius)
+            if ((x-(startX-endX) * (velocity / 10000) * direction) < radius)
             {
                 direction = direction * -1;
                 x = radius;
             }
-            else if ((x-(startX-endX) * (velocity / 30000) * direction) > (canvas.getWidth() - radius))
+            else if ((x-(startX-endX) * (velocity / 10000) * direction) > (canvas.getWidth() - radius))
             {
                 direction = direction * - 1;
                 x = canvas.getWidth() - radius;
             }
 
-            x -= (startX-endX) * (velocity / 20000) * direction;
-            y -= (startY-endY) * (velocity / 20000);
+            x -= (startX-endX) * (velocity / 10000) * direction;
+            y -= (startY-endY) * (velocity / 10000);
         }
     }
 
     //Creates a class obstacle that extends circle
     public class Obstacle extends Circle
     {
-        public String effect;
-
         public Obstacle(float x, float y, int radius, Paint paint, String effect)
         {
             this.x = x;
@@ -144,14 +134,13 @@ public class GameScreen extends AppCompatActivity {
     //Creates a target class that extends circle
     public class Target extends Circle
     {
-        public String effect;
-
         public Target(float x, float y, int radius, Paint paint)
         {
             this.x = x;
             this.y = y;
             this.radius = radius;
             this.paint = paint;
+            effect = "Target";
         }
 
         //Draw the ball
@@ -163,7 +152,7 @@ public class GameScreen extends AppCompatActivity {
         //Randomize the x coordinate
         public void randomX(Canvas canvas)
         {
-            x = rand.nextInt(canvas.getWidth()-radius) + radius;;
+            x = rand.nextInt(canvas.getWidth()-(radius*3)) + (radius*3);;
         }
     }
 
@@ -172,6 +161,8 @@ public class GameScreen extends AppCompatActivity {
         private GestureDetector gestureDetector;
         Paint paint1 = new Paint();
         Paint paint2 = new Paint();
+        //Create new target object
+        Target target1 = new Target(0, 80, 75, paint2);
 
         public GraphicsView(Context context) {
             super(context);
@@ -179,6 +170,7 @@ public class GameScreen extends AppCompatActivity {
 
             paint1.setColor(getColor(R.color.colorPrimaryDark));
             paint2.setColor(getColor(R.color.colorAccent));
+            circleList.add(target1);
         }
 
         @Override
@@ -187,51 +179,56 @@ public class GameScreen extends AppCompatActivity {
 
             if (start == true)
             {
-                ranX = rand.nextInt(canvas.getWidth()-50) + 25;
+                //Randomize x variable
+                target1.randomX(canvas);
                 start = false;
             }
             else
             {
-                canvas.drawCircle(ranX, 80, 50, paint2);
-            }
+                //Draw the target
+                target1.draw(canvas);
 
-            if (fling == true)
-            {
-                canvas.drawCircle(startX, startY, 50, paint1);
-            }
-
-            currX = startX - moveX;
-            currY = startY - moveY;
-
-            //Check if ball has hit target
-            if (currX > (ranX-50) && currX < (ranX + 50) && currY > 30 && currY < 130)
-            {
-                //Change value of score
-                textView.setText("Score: 1");
-                flinging = false;
-            }
-
-            else if (flinging == true)
-            {
-                //Check that ball is not on sides
-                if ((currX-(startX-endX) * (velocity / 30000) * direction) < 25)
+                if (flinging == true)
                 {
-                    direction = direction * -1;
-                    currX = 25;
+                    Ball currentBall = null;
+                    //Draw the ball
+                    for (int i = 0; i <ballList.size(); i++)
+                    {
+                        currentBall = ballList.get(i);
+                        currentBall.draw(canvas);
+                    }
+
+                    //Check for collisions
+                    Circle collideCircle = currentBall.checkCollision();
+
+                    if (collideCircle != null)
+                    {
+                        if (collideCircle.effect == "Target")
+                        {
+                            //Update score
+                            score++;
+                            textViewScore.setText("Score: " + score);
+                            ballList.clear();
+                            flinging = false;
+                            start = true;
+                        }
+                    }
+
+                    //Check that ball is not on sides
+                    if (currentBall.x < 25)
+                    {
+                        currentBall.direction = currentBall.direction * -1;
+                        currentBall.x = 25;
+                    }
+                    else if (currentBall.x > (canvas.getWidth() - 25))
+                    {
+                        currentBall.direction = currentBall.direction * -1;
+                        currentBall.x = canvas.getWidth() - 25;
+                    }
+
+                    //Move the ball
+                    currentBall.Move(canvas);
                 }
-                else if ((currX-(startX-endX) * (velocity / 30000) * direction) > (canvas.getWidth() - 25))
-                {
-                    direction = direction * - 1;
-                    currX = canvas.getWidth() - 25;
-                }
-
-                currX -= (startX-endX) * (velocity / 20000) * direction;
-                currY -= (startY-endY) * (velocity / 20000);
-
-                moveX = startX - currX;
-                moveY = startY - currY;
-
-                canvas.drawCircle(currX, currY, 50, paint1);
             }
             invalidate();
         }
@@ -250,12 +247,6 @@ public class GameScreen extends AppCompatActivity {
             @Override
             public boolean onDown(MotionEvent e) {
                 Log.i(TAG, "onDOWN");
-                if (flinging == false)
-                {
-                    fling = true;
-                    startX = e.getX();
-                    startY = e.getY();
-                }
                 return true;
             }
 
@@ -266,30 +257,18 @@ public class GameScreen extends AppCompatActivity {
                 Log.i(TAG, "onFLING starts at x " + e1.getX() + "," + e1.getY());
                 Log.i(TAG, "onFLING finishes at x " + e2.getX() + "," + e2.getY());
 
-                if (flinging == false && fling == true)
+                if (flinging == false)
                 {
-                    //Store values of fling
-                    //startX = (int)e1.getX();
-                    //startY = (int)e1.getY();
-                    endX = e2.getX();
-                    endY = e2.getY();
-                    vX = velocityX * velocityX;
+                    float velocity = 0;
+                    float vX = velocityX * velocityX;
                     vX = (float) Math.sqrt(vX);
-                    vY = velocityY * velocityY;
-                    vY = (float) Math.sqrt(vY);
 
-                    //Picking the velocity to use
-                    if (vX > vY)
-                    {
-                        velocity = vX;
-                    }
-                    else
-                    {
-                        velocity = vY;
-                    }
+                    //Create new ball object
+                    Ball ball = new Ball(e1.getX(), e1.getY(), 50, paint1, e2.getX(), e2.getY(), vX);
+                    //Add ball to ball array
+                    ballList.add(ball);
 
                     flinging = true;
-                    fling = false;
                 }
 
                 return false;
@@ -302,7 +281,7 @@ public class GameScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_screen);
 
-        textView = (TextView) findViewById(R.id.text_score);
+        textViewScore = (TextView) findViewById(R.id.text_score);
 
         //Hide the action bar
         ActionBar actionBar = getSupportActionBar();
