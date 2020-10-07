@@ -83,13 +83,32 @@ public class GameScreen extends AppCompatActivity {
             for (int i=0; i < circleList.size(); i++)
             {
                 Circle current = circleList.get(i);
-                if (this.x > (current.x - current.radius) && this.x < (current.x + current.radius) && this.y > (current.y - current.radius) && this.y < (current.y + current.radius))
+
+                float xDif = this.x - current.x;
+                float yDif = this.y - current.y;
+                float distanceSquared = xDif * xDif + yDif * yDif;
+                boolean collision = distanceSquared < (this.radius + current.radius) * (this.radius + current.radius);
+
+                if (collision == true)
                 {
                     return current;
                 }
             }
             //No collision found so return null
             return null;
+        }
+
+        //Check that fling is acceptable
+        public boolean checkFling(Canvas canvas)
+        {
+            if (this.startY > (canvas.getHeight()-this.radius*3) && this.endY > (canvas.getHeight()*0.25))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         //Move the ball
@@ -115,31 +134,40 @@ public class GameScreen extends AppCompatActivity {
     //Creates a class obstacle that extends circle
     public class Obstacle extends Circle
     {
-        public Obstacle(float x, float y, int radius, Paint paint, String effect)
+        public Obstacle(float xCoord, float yCoord, int r, Paint p, String e)
         {
-            this.x = x;
-            this.y = y;
-            this.radius = radius;
-            this.paint = paint;
-            this.effect = effect;
+            x = xCoord;
+            y = yCoord;
+            radius = r;
+            paint = p;
+            effect = e;
         }
 
         //Draw the ball
         public void draw(Canvas canvas)
         {
+
             canvas.drawCircle(x, y, radius, paint);
+        }
+
+        //Randomize the x, y and radius
+        public void randomize(Canvas canvas)
+        {
+            x = rand.nextInt(canvas.getWidth()-(radius*3)) + radius;
+            y = rand.nextInt(canvas.getHeight()/2 + 1) + canvas.getHeight()/4;
+            radius = rand.nextInt(51) + 30;
         }
     }
 
     //Creates a target class that extends circle
     public class Target extends Circle
     {
-        public Target(float x, float y, int radius, Paint paint)
+        public Target(float xCoord, float yCoord, int r, Paint p)
         {
-            this.x = x;
-            this.y = y;
-            this.radius = radius;
-            this.paint = paint;
+            x = xCoord;
+            y = yCoord;
+            radius = r;
+            paint = p;
             effect = "Target";
         }
 
@@ -152,25 +180,37 @@ public class GameScreen extends AppCompatActivity {
         //Randomize the x coordinate
         public void randomX(Canvas canvas)
         {
-            x = rand.nextInt(canvas.getWidth()-(radius*3)) + (radius*3);;
+            x = rand.nextInt(canvas.getWidth()-(radius*3)) + radius;
         }
     }
 
     public class GraphicsView extends View {
 
         private GestureDetector gestureDetector;
-        Paint paint1 = new Paint();
-        Paint paint2 = new Paint();
+        Paint paintBall = new Paint();
+        Paint paintTarget = new Paint();
+        Paint paintMinus = new Paint();
+        Paint paintDie = new Paint();
+        Paint paintSwitch = new Paint();
+
         //Create new target object
-        Target target1 = new Target(0, 80, 75, paint2);
+        Target target1 = new Target(0, 80, 75, paintTarget);
+        //Create all possible obstacles
+        Obstacle minus1 = new Obstacle(0, 0, 0, paintMinus, "Minus");
+        Obstacle minus2 = new Obstacle(0, 0, 0, paintMinus, "Minus");
+        Obstacle switch1 = new Obstacle(0, 0, 0, paintSwitch, "Switch");
+        Obstacle switch2 = new Obstacle(0, 0, 0, paintSwitch, "Switch");
+        Obstacle die = new Obstacle(0, 0, 0, paintSwitch, "Die");
 
         public GraphicsView(Context context) {
             super(context);
             gestureDetector = new GestureDetector(context, new MyGestureListener());
 
-            paint1.setColor(getColor(R.color.colorPrimaryDark));
-            paint2.setColor(getColor(R.color.colorAccent));
-            circleList.add(target1);
+            paintBall.setColor(getColor(R.color.colorPrimaryDark));
+            paintTarget.setColor(getColor(R.color.colorTarget));
+            paintMinus.setColor(getColor(R.color.colorMinus));
+            paintDie.setColor(getColor(R.color.colorDie));
+            paintSwitch.setColor(getColor(R.color.colorSwitch));
         }
 
         @Override
@@ -179,14 +219,49 @@ public class GameScreen extends AppCompatActivity {
 
             if (start == true)
             {
+                circleList.clear();
+
                 //Randomize x variable
                 target1.randomX(canvas);
+                minus1.randomize(canvas);
+                minus2.randomize(canvas);
+                switch1.randomize(canvas);
+                switch2.randomize(canvas);
+                die.randomize(canvas);
                 start = false;
+
+                //Draw obstacles depending on score
+                circleList.add(minus1);
+                circleList.add(switch1);
+                circleList.add(target1);
+
+                target1.radius = 75;
+
+                //Add obstacles and change radius depending on score
+                if (score > 5)
+                {
+                    circleList.add(die);
+                    target1.radius -= 10;
+                }
+                if(score > 10)
+                {
+                    circleList.add(minus2);
+                    target1.radius -= 10;
+                }
+                if (score > 15)
+                {
+                    circleList.add(switch2);
+                    target1.radius -= 10;
+                }
+
             }
             else
             {
-                //Draw the target
-                target1.draw(canvas);
+                //Draw circles
+                for (int i=0;i<circleList.size();i++)
+                {
+                    circleList.get(i).draw(canvas);
+                }
 
                 if (flinging == true)
                 {
@@ -195,7 +270,18 @@ public class GameScreen extends AppCompatActivity {
                     for (int i = 0; i <ballList.size(); i++)
                     {
                         currentBall = ballList.get(i);
-                        currentBall.draw(canvas);
+
+                        //Check that fling is acceptable
+                        if (currentBall.checkFling(canvas) == true)
+                        {
+                            currentBall.draw(canvas);
+                        }
+                        else
+                        {
+                            //Clear ball list
+                            ballList.clear();
+                            flinging = false;
+                        }
                     }
 
                     //Check for collisions
@@ -203,6 +289,7 @@ public class GameScreen extends AppCompatActivity {
 
                     if (collideCircle != null)
                     {
+                        //Ball collided with target
                         if (collideCircle.effect == "Target")
                         {
                             //Update score
@@ -211,6 +298,26 @@ public class GameScreen extends AppCompatActivity {
                             ballList.clear();
                             flinging = false;
                             start = true;
+                        }
+                        //Ball collided with minus
+                        else if (collideCircle.effect == "Minus")
+                        {
+                            //Update score
+                            score--;
+                            textViewScore.setText("Score: " + score);
+                            circleList.remove(collideCircle);
+                        }
+                        //Ball collided with minus
+                        else if (collideCircle.effect == "Switch")
+                        {
+                            //Change direction
+                            currentBall.direction = currentBall.direction * -1;
+                            circleList.remove(collideCircle);
+                        }
+                        //Ball collided with die
+                        else
+                        {
+                            flinging = false;
                         }
                     }
 
@@ -259,12 +366,11 @@ public class GameScreen extends AppCompatActivity {
 
                 if (flinging == false)
                 {
-                    float velocity = 0;
-                    float vX = velocityX * velocityX;
-                    vX = (float) Math.sqrt(vX);
+                    float velocity = velocityY * velocityY;
+                    velocity = (float) Math.sqrt(velocity);
 
                     //Create new ball object
-                    Ball ball = new Ball(e1.getX(), e1.getY(), 50, paint1, e2.getX(), e2.getY(), vX);
+                    Ball ball = new Ball(e1.getX(), e1.getY(), 50, paintBall, e2.getX(), e2.getY(), velocity);
                     //Add ball to ball array
                     ballList.add(ball);
 
