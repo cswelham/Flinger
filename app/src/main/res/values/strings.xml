@@ -8,8 +8,17 @@
 
     <string name="highscore_title">High Score</string>
     <string name="highscore_content">Content</string>
+    <string name="button">Home</string>
 
     <string name="instruction_info">FLINGER is a single player game where the aim is to hit the targets on the other side of the screen.\nThe path to the screen is blocked by
-    obstacles. These obstacles will increase as you progress through the game. In addition, the target will become smaller and harder to hit. You can aim the ball by holding it down
-        and trying to fling the ball at the targets.</string>
+        obstacles. These obstacles will increase as you progress through the game. In addition, the target will become smaller and harder to hit.
+        \nTo play the game, you need to fling from the bottom of the screen to the middle of the screen, aiming the ball towards the target. The game finishes when you miss the target or
+        when you hit the die obstacle.
+        \n\nThe obstacles can be identified by their colour. Here are the obstacles:
+        \nBlue: Ball
+        \nGreen: Target
+        \nRed: Minus 1 to your score
+        \nOrange: Switch the left right direction of the ball
+        \nBlack: Your game ends
+        \n\nGame designed by Connor Welham and Zane Prior for COMPX202.</string>
 </resources>

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Context;
+import android.content.Intent;
 import android.gesture.Gesture;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -13,8 +14,10 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -29,6 +32,7 @@ public class GameScreen extends AppCompatActivity {
     int score = 0;
     Random rand = new Random();
     boolean start = true;
+    boolean end = false;
     TextView textViewScore;
     List<Circle> circleList = new ArrayList<Circle>();
     List<Ball> ballList = new ArrayList<Ball>();
@@ -278,6 +282,7 @@ public class GameScreen extends AppCompatActivity {
                         }
                         else
                         {
+                            Toast.makeText(getContext(), "Fling must start from bottom of screen to the middle", Toast.LENGTH_SHORT).show();
                             //Clear ball list
                             ballList.clear();
                             flinging = false;
@@ -317,8 +322,14 @@ public class GameScreen extends AppCompatActivity {
                         //Ball collided with die
                         else
                         {
-                            flinging = false;
+                            end = true;
                         }
+                    }
+
+                    //Check that ball has missed target
+                    if (currentBall.y < 10)
+                    {
+                        end = true;
                     }
 
                     //Check that ball is not on sides
@@ -337,7 +348,16 @@ public class GameScreen extends AppCompatActivity {
                     currentBall.Move(canvas);
                 }
             }
-            invalidate();
+            if (end == false)
+            {
+                invalidate();
+            }
+            else
+            {
+                flinging = false;
+                end = true;
+                submitScore();
+            }
         }
 
         @Override
@@ -402,5 +422,13 @@ public class GameScreen extends AppCompatActivity {
         GraphicsView graphicsView = new GraphicsView(this);
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.cl_game);
         linearLayout.addView(graphicsView);
+    }
+
+    //Go to submitScore activity and pass the current score
+    protected void submitScore()
+    {
+        Intent i = new Intent(this, SubmitScore.class);
+        i.putExtra("score", score);
+        startActivity(i);
     }
 }
