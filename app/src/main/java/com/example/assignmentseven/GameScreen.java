@@ -157,9 +157,9 @@ public class GameScreen extends AppCompatActivity {
         //Randomize the x, y and radius
         public void randomize(Canvas canvas)
         {
-            x = rand.nextInt(canvas.getWidth()-(radius*4)) + radius*2;
-            y = rand.nextInt(canvas.getHeight()/2 + 1) + canvas.getHeight()/4;
             radius = rand.nextInt(51) + 30;
+            x = rand.nextInt(canvas.getWidth()-(radius*2)) + radius * 3;
+            y = rand.nextInt(canvas.getHeight()/2 + 1) + canvas.getHeight()/4;
         }
     }
 
@@ -184,7 +184,7 @@ public class GameScreen extends AppCompatActivity {
         //Randomize the x coordinate
         public void randomX(Canvas canvas)
         {
-            x = rand.nextInt(canvas.getWidth()-(radius*4)) + radius * 2;
+            x = rand.nextInt(canvas.getWidth()-(radius*4)) + radius * 3;
         }
     }
 

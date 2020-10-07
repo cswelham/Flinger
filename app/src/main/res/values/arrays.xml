@@ -6,27 +6,4 @@
         <item>High Scores</item>
     </string-array>
 
-    <string-array name="string_array_num">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-    </string-array>
-
-    <string-array name="string_array_name">
-        <item>None</item>
-        <item>None</item>
-        <item>None</item>
-        <item>None</item>
-        <item>None</item>
-    </string-array>
-
-    <string-array name="string_array_score">
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-    </string-array>
 </resources>

@@ -33,7 +33,7 @@ public class SubmitScore extends AppCompatActivity {
     {
         Intent i = new Intent(this,HighScoreScreen.class);
         EditText editText = (EditText) findViewById(R.id.textName);
-        if (editText.getText().toString() != "")
+        if (editText.getText().toString().trim().length() != 0)
         {
             Toast.makeText(this, "Start Button Clicked", Toast.LENGTH_SHORT).show();
             i.putExtra("name", editText.getText().toString());
