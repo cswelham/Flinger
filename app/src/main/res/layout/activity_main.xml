@@ -10,9 +10,23 @@
         android:layout_height="156dp"
         android:layout_gravity="center_vertical"
         android:fontFamily="sans-serif-medium"
-        android:text="FLINGER"
+        android:text="@string/game_name"
         android:gravity="center"
         android:textSize="90dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/designers"
+        android:textSize="30dp"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:src="@drawable/shape_blue_rectangle"/>
 
     <ListView
         android:id="@+id/listview_main"

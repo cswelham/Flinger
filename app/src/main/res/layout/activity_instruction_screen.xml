@@ -9,7 +9,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="2"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:justificationMode="inter_word"
         android:textSize="70dp"
         android:gravity="center"
         android:text="@string/instruction_name"/>

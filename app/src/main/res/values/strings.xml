@@ -1,7 +1,8 @@
 <resources>
-    <string name="app_name">AssignmentSeven</string>
+    <string name="app_name">Flinger</string>
 
     <string name="game_name">FLINGER</string>
+    <string name="designers">Designed by Connor Welham and Zane Prior</string>
     <string name="score">Score: 0</string>
 
     <string name="instruction_name">How To Play FLINGER</string>
@@ -18,7 +19,7 @@
         \nBlue: Ball
         \nGreen: Target
         \nRed: Minus 1 to your score
-        \nOrange: Switch the left right direction of the ball
+        \nYellow: Switch the left right direction of the ball
         \nBlack: Your game ends
         \n\nGame designed by Connor Welham and Zane Prior for COMPX202.</string>
 </resources>

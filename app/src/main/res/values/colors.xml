@@ -6,5 +6,5 @@
     <color name="colorDie">#010103</color>
     <color name="colorTarget">#00FF00</color>
     <color name="colorMinus">#FF0000</color>
-    <color name="colorSwitch">#FF4500</color>
+    <color name="colorSwitch">#FFFF00</color>
 </resources>

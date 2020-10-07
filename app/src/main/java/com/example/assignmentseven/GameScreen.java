@@ -130,8 +130,8 @@ public class GameScreen extends AppCompatActivity {
                 x = canvas.getWidth() - radius;
             }
 
-            x -= (startX-endX) * (velocity / 10000) * direction;
-            y -= (startY-endY) * (velocity / 10000);
+            x -= (startX-endX) * (velocity / 50000) * direction;
+            y -= (startY-endY) * (velocity / 50000);
         }
     }
 
@@ -157,7 +157,7 @@ public class GameScreen extends AppCompatActivity {
         //Randomize the x, y and radius
         public void randomize(Canvas canvas)
         {
-            x = rand.nextInt(canvas.getWidth()-(radius*3)) + radius;
+            x = rand.nextInt(canvas.getWidth()-(radius*4)) + radius*2;
             y = rand.nextInt(canvas.getHeight()/2 + 1) + canvas.getHeight()/4;
             radius = rand.nextInt(51) + 30;
         }
@@ -184,7 +184,7 @@ public class GameScreen extends AppCompatActivity {
         //Randomize the x coordinate
         public void randomX(Canvas canvas)
         {
-            x = rand.nextInt(canvas.getWidth()-(radius*3)) + radius;
+            x = rand.nextInt(canvas.getWidth()-(radius*4)) + radius * 2;
         }
     }
 
@@ -204,7 +204,7 @@ public class GameScreen extends AppCompatActivity {
         Obstacle minus2 = new Obstacle(0, 0, 0, paintMinus, "Minus");
         Obstacle switch1 = new Obstacle(0, 0, 0, paintSwitch, "Switch");
         Obstacle switch2 = new Obstacle(0, 0, 0, paintSwitch, "Switch");
-        Obstacle die = new Obstacle(0, 0, 0, paintSwitch, "Die");
+        Obstacle die = new Obstacle(0, 0, 0, paintDie, "Die");
 
         public GraphicsView(Context context) {
             super(context);
@@ -355,7 +355,7 @@ public class GameScreen extends AppCompatActivity {
             else
             {
                 flinging = false;
-                end = true;
+                end = false;
                 submitScore();
             }
         }
