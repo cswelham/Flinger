@@ -1,5 +1,6 @@
 package com.example.assignmentseven;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -24,6 +25,8 @@ public class HighScoreScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_high_score_screen);
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.hide();
 
         try
         {

@@ -430,5 +430,6 @@ public class GameScreen extends AppCompatActivity {
         Intent i = new Intent(this, SubmitScore.class);
         i.putExtra("score", score);
         startActivity(i);
+        finish();
     }
 }

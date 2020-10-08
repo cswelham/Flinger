@@ -7,37 +7,34 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="3"
+        android:layout_marginTop="200dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:justificationMode="inter_word"
-        android:textSize="75dp"
+        android:textSize="50dp"
         android:gravity="center"
         android:text="@string/highscore_title"/>
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:src="@drawable/shape_blue_rectangle"/>
 
     <TextView
         android:id="@+id/detail_activity_textview_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="6"
+        android:layout_marginTop="50dp"
+        android:textSize="20dp"
+        android:gravity="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:justificationMode="inter_word"
-        android:layout_margin="20dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
         android:text="@string/highscore_content"/>
-
-    <Button
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="2"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:layout_margin="20dp"
-        android:textSize="40dp"
-        android:text="@string/button"
-        android:onClick="onClickStart"/>
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:layout_marginTop="150dp"
+        android:textSize="10dp"
+        android:text="BY CONNOR WELHAM AND ZANE PRIOR"
+        />
+
 
 </LinearLayout>

@@ -6,33 +6,34 @@
 
     <!--  This is the ListView that you will be populating  -->
     <TextView
+        android:layout_marginTop="150dp"
         android:layout_width="match_parent"
-        android:layout_height="156dp"
+        android:layout_height="100dp"
         android:layout_gravity="center_vertical"
         android:fontFamily="sans-serif-medium"
-        android:text="@string/game_name"
+        android:text="FLINGER"
         android:gravity="center"
-        android:textSize="90dp" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:fontFamily="sans-serif-medium"
-        android:text="@string/designers"
-        android:textSize="30dp"/>
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:src="@drawable/shape_blue_rectangle"/>
+        android:textSize="80dp" />
 
     <ListView
         android:id="@+id/listview_main"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="8"/>
+        android:layout_weight="8"
+        android:layout_gravity="center"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:layout_marginTop="150dp"
+        android:textSize="10dp"
+        android:text="BY CONNOR WELHAM AND ZANE PRIOR"
+        />
 
 </LinearLayout>
 

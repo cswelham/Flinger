@@ -5,41 +5,43 @@
     android:orientation="vertical">
 
     <TextView
+        android:layout_marginTop="130dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="2"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textSize="70dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_vertical"
+        android:fontFamily="sans-serif-medium"
+        android:text="FLINGER"
         android:gravity="center"
-        android:text="@string/instruction_name"/>
+        android:textSize="80dp" />
+    <TextView
 
-    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:src="@drawable/shape_blue_rectangle"/>
+        android:layout_height="100dp"
+        android:layout_gravity="center_vertical"
+        android:fontFamily="sans-serif-medium"
+        android:text="HOW TO PLAY"
+        android:gravity="center"
+        android:textSize="32dp" />
 
-    <ScrollView
+
+
+    <TextView
+        android:id="@+id/detail_activity_textview_content"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="6">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/detail_activity_textview_content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:justificationMode="inter_word"
-            android:layout_margin="20dp"
-            android:text="@string/instruction_info"/>
-
-        </LinearLayout>
-
-    </ScrollView>
+        android:layout_height="300dp"
+        android:layout_weight="6"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:justificationMode="inter_word"
+        android:text="@string/instruction_info"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:layout_marginTop="130dp"
+        android:textSize="10dp"
+        android:text="BY CONNOR WELHAM AND ZANE PRIOR"
+        />
 
 </LinearLayout>

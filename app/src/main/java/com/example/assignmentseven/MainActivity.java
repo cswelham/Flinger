@@ -1,5 +1,6 @@
 package com.example.assignmentseven;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -20,6 +21,9 @@ public class MainActivity extends AppCompatActivity {
 
         ListView listView = (ListView)findViewById(R.id.listview_main);
         listView.setAdapter(arrayAdapter);
+
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.hide();
 
         AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
             @Override

@@ -1,5 +1,6 @@
 package com.example.assignmentseven;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -16,6 +17,8 @@ public class SubmitScore extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_submit_score);
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.hide();
 
         try
         {
@@ -39,6 +42,7 @@ public class SubmitScore extends AppCompatActivity {
             i.putExtra("name", editText.getText().toString());
             i.putExtra("score", score);
             startActivity(i);
+            finish();
         }
         else
         {
