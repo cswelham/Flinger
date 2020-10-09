@@ -29,11 +29,11 @@
         android:text="@string/highscore_content"/>
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_marginTop="150dp"
         android:textSize="10dp"
-        android:text="BY CONNOR WELHAM AND ZANE PRIOR"
+        android:text="@string/designers"
         />
 
 
