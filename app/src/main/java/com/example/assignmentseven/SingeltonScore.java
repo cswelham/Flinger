@@ -1,5 +1,7 @@
 package com.example.assignmentseven;
 
+import android.media.MediaPlayer;
+
 //Class to hold highscore names and scores
 public class SingeltonScore
 {

@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:fontFamily="sans-serif-medium"
-        android:text="FLINGER"
+        android:text="@string/game_name"
         android:gravity="center"
         android:textSize="80dp" />
     <TextView
@@ -18,32 +18,31 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:fontFamily="sans-serif-medium"
-        android:text="HOW TO PLAY"
+        android:text="@string/instruction_name"
         android:gravity="center"
         android:textSize="32dp" />
 
     <ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="8">
-
-    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        android:layout_weight="10">
 
-        <TextView
-            android:id="@+id/detail_activity_textview_content"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="6"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:justificationMode="inter_word"
-            android:text="@string/instruction_info"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"/>
-    </LinearLayout>
-</ScrollView>
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/detail_activity_textview_content"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="6"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:text="@string/instruction_info"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"/>
+        </LinearLayout>
+    </ScrollView>
 
     <TextView
         android:layout_width="match_parent"

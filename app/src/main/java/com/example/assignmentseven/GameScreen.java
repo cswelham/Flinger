@@ -446,9 +446,10 @@ public class GameScreen extends AppCompatActivity {
 
         textViewScore = (TextView) findViewById(R.id.text_score);
 
-        //Add music when game starts
-        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.bensound_moose);
-        mediaPlayer.start();
+        //Play music when game starts
+        MediaPlayer player = MediaPlayer.create(this, R.raw.bensound_moose);
+        player.setLooping(true);
+        player.start();
 
         //Hide the action bar
         ActionBar actionBar = getSupportActionBar();
