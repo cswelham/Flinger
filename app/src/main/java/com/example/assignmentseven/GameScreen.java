@@ -118,7 +118,7 @@ public class GameScreen extends AppCompatActivity {
         }
 
         //Move the ball
-        public void Move(Canvas canvas)
+        public void move(Canvas canvas)
         {
             //Check that ball is not on sides
             if ((x-(startX-endX) * (velocity / 10000) * direction) < radius)
@@ -140,6 +140,8 @@ public class GameScreen extends AppCompatActivity {
     //Creates a class obstacle that extends circle
     public class Obstacle extends Circle
     {
+        int direction;
+
         public Obstacle(float xCoord, float yCoord, int r, Paint p, String e)
         {
             x = xCoord;
@@ -147,6 +149,7 @@ public class GameScreen extends AppCompatActivity {
             radius = r;
             paint = p;
             effect = e;
+            direction = 1;
         }
 
         //Draw the ball
@@ -160,8 +163,14 @@ public class GameScreen extends AppCompatActivity {
         public void randomize(Canvas canvas)
         {
             radius = rand.nextInt(51) + 30;
-            x = rand.nextInt(canvas.getWidth()-(radius*2)) + radius * 3;
+            x = rand.nextInt(canvas.getWidth()-(radius*6)) + (radius * 3);
             y = rand.nextInt(canvas.getHeight()/2 + 1) + canvas.getHeight()/4;
+        }
+
+        //Move the obstacle, designed for die obstacle
+        public void moveX(Canvas canvas)
+        {
+            x += 3 * direction;
         }
     }
 
@@ -186,7 +195,7 @@ public class GameScreen extends AppCompatActivity {
         //Randomize the x coordinate
         public void randomX(Canvas canvas)
         {
-            x = rand.nextInt(canvas.getWidth()-(radius*4)) + radius * 3;
+            x = rand.nextInt(canvas.getWidth()-(radius*6)) + (radius * 3);
         }
     }
 
@@ -222,6 +231,8 @@ public class GameScreen extends AppCompatActivity {
         @Override
         protected void onDraw(Canvas canvas) {
             super.onDraw(canvas);
+
+            boolean dieMove = false;
 
             if (start == true)
             {
@@ -267,6 +278,30 @@ public class GameScreen extends AppCompatActivity {
                 for (int i=0;i<circleList.size();i++)
                 {
                     circleList.get(i).draw(canvas);
+
+                    if (circleList.get(i).effect == "Die")
+                    {
+                        dieMove = true;
+                    }
+                }
+
+                //Check if we have a moving die obstacle
+                if (dieMove == true)
+                {
+                    //Check that die is not on sides
+                    if (die.x < die.radius)
+                    {
+                        die.direction = die.direction * -1;
+                        die.x = die.radius;
+                    }
+                    else if (die.x > (canvas.getWidth() - 25))
+                    {
+                        die.direction = die.direction * -1;
+                        die.x = canvas.getWidth() - die.radius;
+                    }
+
+                    //Move the die
+                    die.moveX(canvas);
                 }
 
                 if (flinging == true)
@@ -347,7 +382,7 @@ public class GameScreen extends AppCompatActivity {
                     }
 
                     //Move the ball
-                    currentBall.Move(canvas);
+                    currentBall.move(canvas);
                 }
             }
             if (end == false)
@@ -410,6 +445,10 @@ public class GameScreen extends AppCompatActivity {
         setContentView(R.layout.activity_game_screen);
 
         textViewScore = (TextView) findViewById(R.id.text_score);
+
+        //Add music when game starts
+        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.bensound_moose);
+        mediaPlayer.start();
 
         //Hide the action bar
         ActionBar actionBar = getSupportActionBar();
