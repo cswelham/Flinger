@@ -38,6 +38,7 @@ public class GameScreen extends AppCompatActivity {
     TextView textViewScore;
     List<Circle> circleList = new ArrayList<Circle>();
     List<Ball> ballList = new ArrayList<Ball>();
+    MediaPlayer player;
 
     //Creates an abstract class circle
     public abstract class Circle
@@ -207,12 +208,13 @@ public class GameScreen extends AppCompatActivity {
         Paint paintMinus = new Paint();
         Paint paintDie = new Paint();
         Paint paintSwitch = new Paint();
+        Paint paintSpeed = new Paint();
 
         //Create new target object
         Target target1 = new Target(0, 80, 75, paintTarget);
         //Create all possible obstacles
         Obstacle minus1 = new Obstacle(0, 0, 0, paintMinus, "Minus");
-        Obstacle minus2 = new Obstacle(0, 0, 0, paintMinus, "Minus");
+        Obstacle speed = new Obstacle(0, 0, 0, paintSpeed, "Speed");
         Obstacle switch1 = new Obstacle(0, 0, 0, paintSwitch, "Switch");
         Obstacle switch2 = new Obstacle(0, 0, 0, paintSwitch, "Switch");
         Obstacle die = new Obstacle(0, 0, 0, paintDie, "Die");
@@ -226,6 +228,7 @@ public class GameScreen extends AppCompatActivity {
             paintMinus.setColor(getColor(R.color.colorMinus));
             paintDie.setColor(getColor(R.color.colorDie));
             paintSwitch.setColor(getColor(R.color.colorSwitch));
+            paintSpeed.setColor(getColor(R.color.colorSpeed));
         }
 
         @Override
@@ -241,7 +244,7 @@ public class GameScreen extends AppCompatActivity {
                 //Randomize x variable
                 target1.randomX(canvas);
                 minus1.randomize(canvas);
-                minus2.randomize(canvas);
+                speed.randomize(canvas);
                 switch1.randomize(canvas);
                 switch2.randomize(canvas);
                 die.randomize(canvas);
@@ -262,7 +265,7 @@ public class GameScreen extends AppCompatActivity {
                 }
                 if(score > 10)
                 {
-                    circleList.add(minus2);
+                    circleList.add(speed);
                     target1.radius -= 10;
                 }
                 if (score > 15)
@@ -336,6 +339,7 @@ public class GameScreen extends AppCompatActivity {
                         {
                             //Update score
                             score++;
+                            playMusic("Target");
                             textViewScore.setText("Score: " + score);
                             ballList.clear();
                             flinging = false;
@@ -346,6 +350,7 @@ public class GameScreen extends AppCompatActivity {
                         {
                             //Update score
                             score--;
+                            playMusic("Minus");
                             textViewScore.setText("Score: " + score);
                             circleList.remove(collideCircle);
                         }
@@ -353,12 +358,22 @@ public class GameScreen extends AppCompatActivity {
                         else if (collideCircle.effect == "Switch")
                         {
                             //Change direction
+                            playMusic("Switch");
                             currentBall.direction = currentBall.direction * -1;
+                            circleList.remove(collideCircle);
+                        }
+                        //Ball collided with speed
+                        else if (collideCircle.effect == "Speed")
+                        {
+                            //Double the speed
+                            playMusic("Speed");
+                            currentBall.velocity = currentBall.velocity * 2;
                             circleList.remove(collideCircle);
                         }
                         //Ball collided with die
                         else
                         {
+                            playMusic("Die");
                             end = true;
                         }
                     }
@@ -367,6 +382,7 @@ public class GameScreen extends AppCompatActivity {
                     if (currentBall.y < 10)
                     {
                         end = true;
+                        playMusic("Die");
                     }
 
                     //Check that ball is not on sides
@@ -447,7 +463,8 @@ public class GameScreen extends AppCompatActivity {
         textViewScore = (TextView) findViewById(R.id.text_score);
 
         //Play music when game starts
-        MediaPlayer player = MediaPlayer.create(this, R.raw.bensound_moose);
+        player = MediaPlayer.create(this, R.raw.bensound_moose);
+        player.setVolume(50, 50);
         player.setLooping(true);
         player.start();
 
@@ -473,5 +490,41 @@ public class GameScreen extends AppCompatActivity {
         i.putExtra("score", score);
         startActivity(i);
         finish();
+    }
+
+    //Play music
+    protected void playMusic(String effect)
+    {
+        if (effect == "Die")
+        {
+            player.stop();
+            MediaPlayer mp = MediaPlayer.create(this, R.raw.explosion_sound);
+            mp.setVolume(400, 400);
+            mp.start();
+        }
+        else if (effect == "Target")
+        {
+            MediaPlayer mp = MediaPlayer.create(this, R.raw.coin_sound2);
+            mp.setVolume(100, 100);
+            mp.start();
+        }
+        else if (effect == "Minus")
+        {
+            MediaPlayer mp = MediaPlayer.create(this, R.raw.minus_sound_louder);
+            mp.setVolume(400, 400);
+            mp.start();
+        }
+        else if (effect == "Speed")
+        {
+            MediaPlayer mp = MediaPlayer.create(this, R.raw.speed_sound_louder);
+            mp.setVolume(400, 400);
+            mp.start();
+        }
+        else
+        {
+            MediaPlayer mp = MediaPlayer.create(this, R.raw.switch_sound_louder);
+            mp.setVolume(400, 400);
+            mp.start();
+        }
     }
 }

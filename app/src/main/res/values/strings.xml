@@ -7,7 +7,7 @@
 
     <string name="instruction_name">How To Play</string>
 
-    <string name="highscore_title">High Score</string>
+    <string name="highscore_title">High Scores</string>
     <string name="highscore_content">Content</string>
     <string name="button">Home</string>
 
@@ -20,6 +20,7 @@
         \nGreen: Target
         \nRed: Minus 1 to your score
         \nYellow: Switch the left right direction of the ball
+        \nPink: Ball speeds up
         \nBlack: Your game ends
-        \n\nGame designed by Connor Welham and Zane Prior for COMPX202.</string>
+        \n\nSound is from YouTube and BenSound.</string>
 </resources>

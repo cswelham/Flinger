@@ -25,7 +25,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="10">
+        android:layout_weight="12">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -35,12 +35,13 @@
             <TextView
                 android:id="@+id/detail_activity_textview_content"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="6"
+                android:layout_height="wrap_content"
+                android:layout_weight="12"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:text="@string/instruction_info"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="50dp"/>
+                android:textSize="15dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"/>
         </LinearLayout>
     </ScrollView>
 
@@ -50,6 +51,6 @@
         android:gravity="center"
         android:layout_marginTop="130dp"
         android:textSize="10dp"
-        android:text="BY CONNOR WELHAM AND ZANE PRIOR"/>
+        android:text="@string/designers"/>
 
 </LinearLayout>

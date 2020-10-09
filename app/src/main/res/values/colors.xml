@@ -7,4 +7,5 @@
     <color name="colorTarget">#00FF00</color>
     <color name="colorMinus">#FF0000</color>
     <color name="colorSwitch">#FFFF00</color>
+    <color name="colorSpeed">#FFC0CB</color>
 </resources>
