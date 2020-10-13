@@ -3,7 +3,9 @@ package com.example.assignmentseven;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 public class InstructionScreen extends AppCompatActivity {
 
@@ -14,5 +16,12 @@ public class InstructionScreen extends AppCompatActivity {
 
         ActionBar actionbar = getSupportActionBar();
         actionbar.hide();
+    }
+
+    public void onclickBack(View v){
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+        finish();
+
     }
 }

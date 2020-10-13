@@ -7,11 +7,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class SubmitScore extends AppCompatActivity {
 
     int score = 0;
+    TextView textViewScore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,11 +26,19 @@ public class SubmitScore extends AppCompatActivity {
         {
             Intent intent = getIntent();
             score = intent.getIntExtra("score", 9999);
+            textViewScore = (TextView) findViewById(R.id.text_score);
+            textViewScore.setText(" " + score);
         }
         catch (Exception e)
         {
             //Do nothing
         }
+    }
+
+    public void onclickPlay(View v){
+        Intent i = new Intent(this, GameScreen.class);
+        startActivity(i);
+
     }
 
     ///Goes to list activity when the start button is clicked

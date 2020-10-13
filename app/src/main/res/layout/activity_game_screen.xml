@@ -3,20 +3,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:id="@+id/cl_game">
+    android:id="@+id/cl_game"
+    android:background="@color/grey3">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:gravity="center_vertical"
+        android:gravity="center"
         android:text="@string/score"
+        android:background="@color/grey3"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textSize="50dp"
+        android:textColor="@color/grey1"
         android:id="@+id/text_score"/>
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:src="@drawable/shape_blue_rectangle"/>
 
 </LinearLayout>

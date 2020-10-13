@@ -171,6 +171,19 @@ public class GameScreen extends AppCompatActivity {
         //Move the obstacle, designed for die obstacle
         public void moveX(Canvas canvas)
         {
+            //Check that die is not on sides
+            if (x <radius)
+            {
+                direction = direction * -1;
+                x = radius;
+            }
+            else if (x > (canvas.getWidth() - 25))
+            {
+                direction = direction * -1;
+                x = canvas.getWidth() - radius;
+            }
+
+            //Change x value
             x += 3 * direction;
         }
     }
@@ -223,7 +236,7 @@ public class GameScreen extends AppCompatActivity {
             super(context);
             gestureDetector = new GestureDetector(context, new MyGestureListener());
 
-            paintBall.setColor(getColor(R.color.colorPrimaryDark));
+            paintBall.setColor(getColor(R.color.grey1));
             paintTarget.setColor(getColor(R.color.colorTarget));
             paintMinus.setColor(getColor(R.color.colorMinus));
             paintDie.setColor(getColor(R.color.colorDie));
@@ -284,27 +297,8 @@ public class GameScreen extends AppCompatActivity {
 
                     if (circleList.get(i).effect == "Die")
                     {
-                        dieMove = true;
+                        die.moveX(canvas);
                     }
-                }
-
-                //Check if we have a moving die obstacle
-                if (dieMove == true)
-                {
-                    //Check that die is not on sides
-                    if (die.x < die.radius)
-                    {
-                        die.direction = die.direction * -1;
-                        die.x = die.radius;
-                    }
-                    else if (die.x > (canvas.getWidth() - 25))
-                    {
-                        die.direction = die.direction * -1;
-                        die.x = canvas.getWidth() - die.radius;
-                    }
-
-                    //Move the die
-                    die.moveX(canvas);
                 }
 
                 if (flinging == true)
@@ -340,7 +334,7 @@ public class GameScreen extends AppCompatActivity {
                             //Update score
                             score++;
                             playMusic("Target");
-                            textViewScore.setText("Score: " + score);
+                            textViewScore.setText(score);
                             ballList.clear();
                             flinging = false;
                             start = true;
@@ -351,7 +345,7 @@ public class GameScreen extends AppCompatActivity {
                             //Update score
                             score--;
                             playMusic("Minus");
-                            textViewScore.setText("Score: " + score);
+                            textViewScore.setText(score);
                             circleList.remove(collideCircle);
                         }
                         //Ball collided with minus
@@ -383,18 +377,6 @@ public class GameScreen extends AppCompatActivity {
                     {
                         end = true;
                         playMusic("Die");
-                    }
-
-                    //Check that ball is not on sides
-                    if (currentBall.x < 25)
-                    {
-                        currentBall.direction = currentBall.direction * -1;
-                        currentBall.x = 25;
-                    }
-                    else if (currentBall.x > (canvas.getWidth() - 25))
-                    {
-                        currentBall.direction = currentBall.direction * -1;
-                        currentBall.x = canvas.getWidth() - 25;
                     }
 
                     //Move the ball
@@ -449,7 +431,6 @@ public class GameScreen extends AppCompatActivity {
 
                     flinging = true;
                 }
-
                 return false;
             }
         }
@@ -460,6 +441,16 @@ public class GameScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_screen);
 
+        //Hide the action bar
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+
+        //Enabling sticky immersive
+        int uiOptions = View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+        getWindow().getDecorView().setSystemUiVisibility(uiOptions);
+
         textViewScore = (TextView) findViewById(R.id.text_score);
 
         //Play music when game starts
@@ -467,16 +458,6 @@ public class GameScreen extends AppCompatActivity {
         player.setVolume(50, 50);
         player.setLooping(true);
         player.start();
-
-        //Hide the action bar
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
-
-        //Enabling lean back mode
-        int uiOptions = View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
-        getWindow().getDecorView().setSystemUiVisibility(uiOptions);
 
         GraphicsView graphicsView = new GraphicsView(this);
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.cl_game);

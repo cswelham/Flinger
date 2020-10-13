@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/grey3">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="200dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:fontFamily="sans-serif-medium"
         android:justificationMode="inter_word"
-        android:textSize="50dp"
+        android:textSize="46dp"
         android:gravity="center"
+        android:textColor="@color/grey1"
         android:text="@string/highscore_title"/>
 
 
@@ -21,21 +24,36 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:textSize="20dp"
+        android:textColor="@color/grey1"
         android:gravity="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:justificationMode="inter_word"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
         android:text="@string/highscore_content"/>
-
-    <TextView
+    <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginTop="300dp"
-        android:textSize="10dp"
-        android:text="@string/designers"
+        android:background="@drawable/button_selector"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="30dp"
+        android:text="BACK"
+        android:onClick="onclickBack"
+        android:textSize="18dp"
+
         />
 
+    <TextView
+        android:textColor="@color/grey1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:textAlignment="center"
+        android:layout_weight="1"
+        android:textSize="10dp"
+        android:text="@string/designers"
+        android:paddingBottom="20dp"
+        tools:ignore="RtlCompat" />
 
 </LinearLayout>

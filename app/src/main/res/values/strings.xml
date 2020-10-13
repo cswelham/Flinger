@@ -1,26 +1,22 @@
 <resources>
-    <string name="app_name">Flinger</string>
+    <string name="app_name">FLINGER</string>
 
     <string name="game_name">FLINGER</string>
     <string name="designers">BY CONNOR WELHAM AND ZANE PRIOR</string>
-    <string name="score">Score: 0</string>
+    <string name="score"> </string>
 
-    <string name="instruction_name">How To Play</string>
+    <string name="instruction_name">HOW TO PLAY</string>
+    <string name="highscore_title">HIGH SCORES</string>
+    <string name="highscore_content">CONTENT</string>
+    <string name="button">HOME</string>
 
-    <string name="highscore_title">High Scores</string>
-    <string name="highscore_content">Content</string>
-    <string name="button">Home</string>
-
-    <string name="instruction_info">FLINGER is a single player game where the aim is to hit the targets on the other side of the screen.\nThe path to the screen is blocked by
-        obstacles. These obstacles will increase as you progress through the game. In addition, the target will become smaller and harder to hit.
-        \nTo play the game, you need to fling from the bottom of the screen to the middle of the screen, aiming the ball towards the target. The game finishes when you miss the target or
-        when you hit the die obstacle.
-        \n\nThe obstacles can be identified by their colour. Here are the obstacles:
-        \nBlue: Ball
-        \nGreen: Target
-        \nRed: Minus 1 to your score
-        \nYellow: Switch the left right direction of the ball
-        \nPink: Ball speeds up
-        \nBlack: Your game ends
+    <string name="instruction_info"> FLING your ball at the gold target to score points.
+        If you miss, you lose. As you progress it will become increasingly difficult.
+        \n\n There are several obstacles you must consider.
+        \n
+        \n Red Ball: Minus 1 to your score
+        \n Blue Ball: Switch the direction of your ball
+        \n Pink Ball: Speeds up your ball
+        \n Black Ball: Kills your ball
         \n\nSound is from YouTube and BenSound.</string>
 </resources>
