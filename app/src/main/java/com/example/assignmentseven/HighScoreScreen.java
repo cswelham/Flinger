@@ -122,8 +122,8 @@ public class HighScoreScreen extends AppCompatActivity {
         editor.commit();
     }
 
-    ///Goes to list activity when the start button is clicked
-    public void onClickStart(View v)
+    ///Goes back to main menu
+    public void onClickBack(View v)
     {
         Intent i = new Intent(this,MainActivity.class);
         Toast.makeText(this, "Home Button Clicked", Toast.LENGTH_SHORT).show();

@@ -35,7 +35,7 @@ public class SubmitScore extends AppCompatActivity {
         }
     }
 
-    public void onclickPlay(View v){
+    public void onclickPlayAgain(View v){
         Intent i = new Intent(this, GameScreen.class);
         startActivity(i);
 

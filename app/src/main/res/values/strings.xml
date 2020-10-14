@@ -4,6 +4,10 @@
     <string name="game_name">FLINGER</string>
     <string name="designers">BY CONNOR WELHAM AND ZANE PRIOR</string>
     <string name="score"> </string>
+    <string name="buttonBack">BACK</string>
+    <string name="buttonPlayAgain">PLAY AGAIN</string>
+    <string name="buttonSubmit">SUBMIT</string>
+    <string name="nameHint">Name</string>
 
     <string name="instruction_name">HOW TO PLAY</string>
     <string name="highscore_title">HIGH SCORES</string>

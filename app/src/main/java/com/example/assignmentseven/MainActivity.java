@@ -28,15 +28,14 @@ public class MainActivity extends AppCompatActivity {
     public void onclickPlay(View v){
         Intent i = new Intent(this, GameScreen.class);
         startActivity(i);
-
     }
 
     ///How to play button
     public void onclickHow(View v){
         Intent i = new Intent(this, InstructionScreen.class);
         startActivity(i);
-
     }
+
     ///High scores button
     public void onclickScore(View v){
         Intent i = new Intent(this, HighScoreScreen.class);

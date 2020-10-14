@@ -8,13 +8,18 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:gravity="center"
         android:text="@string/score"
         android:background="@color/grey3"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textSize="50dp"
+        android:textSize="40dp"
         android:textColor="@color/grey1"
         android:id="@+id/text_score"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:src="@drawable/shape_rectangle_grey"/>
 
 </LinearLayout>

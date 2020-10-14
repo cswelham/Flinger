@@ -334,7 +334,7 @@ public class GameScreen extends AppCompatActivity {
                             //Update score
                             score++;
                             playMusic("Target");
-                            textViewScore.setText(score);
+                            textViewScore.setText(""+score);
                             ballList.clear();
                             flinging = false;
                             start = true;
@@ -345,7 +345,7 @@ public class GameScreen extends AppCompatActivity {
                             //Update score
                             score--;
                             playMusic("Minus");
-                            textViewScore.setText(score);
+                            textViewScore.setText(""+score);
                             circleList.remove(collideCircle);
                         }
                         //Ball collided with minus

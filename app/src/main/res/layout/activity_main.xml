@@ -67,6 +67,6 @@
         android:textSize="10dp"
         android:text="@string/designers"
         android:paddingBottom="20dp"
-        tools:ignore="RtlCompat" />
+        tools:ignore="RtlCompat"/>
 
 </LinearLayout>

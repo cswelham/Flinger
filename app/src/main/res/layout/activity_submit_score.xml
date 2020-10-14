@@ -28,7 +28,7 @@
         android:layout_margin="20dp"
         android:backgroundTint="@color/grey1"
         android:gravity="center"
-        android:hint="Name"
+        android:hint="@string/nameHint"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/grey1"
         android:textColorHint="@color/grey1"
@@ -42,7 +42,7 @@
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
         android:gravity="center"
-        android:text="SUBMIT"
+        android:text="@string/buttonSubmit"
         android:textColor="@color/grey3"
         android:layout_marginBottom="10dp"
         android:textSize="18dp"
@@ -55,8 +55,8 @@
         android:layout_marginRight="50dp"
         android:background="@drawable/button_selector"
         android:textColor="@color/grey3"
-        android:text="PLAY AGAIN"
-        android:onClick="onclickPlay"
+        android:text="@string/buttonPlayAgain"
+        android:onClick="onclickPlayAgain"
         android:layout_marginBottom="10dp"
         android:textSize="18dp" />
 
