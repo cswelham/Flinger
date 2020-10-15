@@ -126,7 +126,16 @@ public class HighScoreScreen extends AppCompatActivity {
     public void onClickBack(View v)
     {
         Intent i = new Intent(this,MainActivity.class);
-        Toast.makeText(this, "Home Button Clicked", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Home Button Clicked", Toast.LENGTH_SHORT).show();
         startActivity(i);
+
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.hide();
+
+        //Enabling sticky immersive
+        int uiOptions = View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+        getWindow().getDecorView().setSystemUiVisibility(uiOptions);
     }
 }

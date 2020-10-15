@@ -22,6 +22,12 @@ public class SubmitScore extends AppCompatActivity {
         ActionBar actionbar = getSupportActionBar();
         actionbar.hide();
 
+        //Enabling sticky immersive
+        int uiOptions = View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+        getWindow().getDecorView().setSystemUiVisibility(uiOptions);
+
         try
         {
             Intent intent = getIntent();
@@ -48,7 +54,7 @@ public class SubmitScore extends AppCompatActivity {
         EditText editText = (EditText) findViewById(R.id.textName);
         if (editText.getText().toString().trim().length() != 0)
         {
-            Toast.makeText(this, "Start Button Clicked", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Start Button Clicked", Toast.LENGTH_SHORT).show();
             i.putExtra("name", editText.getText().toString());
             i.putExtra("score", score);
             startActivity(i);
